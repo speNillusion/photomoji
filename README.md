@@ -62,14 +62,14 @@ Converts a given word or phrase into an emoji grid string.
 **Request Body:**
 ```json
 {
-  "word": "HELLO"
+  "word": "Era uma vez um lutador que gostava de comer cascas de banana"
 }
 ```
 
 **Response Body:**
 ```json
 {
-  "texto": "⬜⬜⬜⬜⬜\n⬜⬛⬜⬛⬜\n⬜⬜⬜⬜⬜..."
+  "texto": "Era uma vez um 🥊 que gostava de 🍽️ cascas de 🍌"
 }
 ```
 
