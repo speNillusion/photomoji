@@ -1,0 +1,5 @@
+{
+  "name": "Text Parser Client",
+  "description": "A sleek interface to send text to a local API endpoint and visualize the parsed response.",
+  "requestFramePermissions": []
+}
