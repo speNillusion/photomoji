@@ -78,8 +78,8 @@ Converts a given word or phrase into an emoji grid string.
 Follow these instructions to set up and run the project locally.
 
 ### Prerequisites
--   **Java 17** or higher installed.
--   **Node.js 18** or higher installed.
+-   **Java 21** or higher installed.
+-   **Node.js 22** or higher installed.
 -   **Maven** (optional, wrapper included).
 
 ### Backend Setup
