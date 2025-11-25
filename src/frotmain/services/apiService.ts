@@ -1,6 +1,5 @@
-import { ParseRequest, ParseResponse } from '../types';
+import { ParseRequest } from '../types';
 
-// Use relative path to leverage Vite proxy and avoid CORS issues
 const API_URL = '/api/parse';
 
 export const sendParseRequest = async (text: string): Promise<string> => {
@@ -12,8 +11,7 @@ export const sendParseRequest = async (text: string): Promise<string> => {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        // 'Accept': 'application/json', // Sometimes required by certain backends
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(payload),
     });
@@ -24,10 +22,9 @@ export const sendParseRequest = async (text: string): Promise<string> => {
       throw new Error(`Server responded with ${response.status}: ${errorText || 'Unknown error'}`);
     }
 
-    const data: any = await response.json();
+    const data: { texto: string } = await response.json();
 
-    // Try to find the text content in common properties
-    const resultText = data.texto ;
+    const resultText = data.texto;
 
     return resultText;
   } catch (error) {

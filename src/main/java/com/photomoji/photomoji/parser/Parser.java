@@ -27,11 +27,11 @@ public class Parser {
                 Exemplo: input -> Um gato pulou o muro, output -> Um [emoji gato] pulou o [emoji muro]
                 Sempre PASSE as palavras para emoji, se existir uma emoji para a palavra.""";
 
-        // --- CORREÇÃO: Construindo o corpo da requisição para a API do Groq ---
+
         JsonObject requestBodyJson = new JsonObject();
         requestBodyJson.addProperty("model", "openai/gpt-oss-120b");
 
-        // Estrutura de 'messages' padrão
+       // messages and body
         JsonArray messages = new JsonArray();
         JsonObject systemMessage = new JsonObject();
         systemMessage.addProperty("role", "system");
@@ -45,22 +45,20 @@ public class Parser {
 
         requestBodyJson.add("messages", messages);
 
-        // Parâmetros específicos do Groq para ativar ferramentas
+
         JsonObject compoundCustom = new JsonObject();
         JsonObject tools = new JsonObject();
         JsonArray enabledTools = new JsonArray();
-        enabledTools.add("web_search"); // Ativando a busca na web
+        enabledTools.add("web_search");
         tools.add("enabled_tools", enabledTools);
         compoundCustom.add("tools", tools);
         requestBodyJson.add("compound_custom", compoundCustom);
 
-        // Outros parâmetros (opcionais, mas bons para controle)
-        requestBodyJson.addProperty("temperature", 0.5);
+        requestBodyJson.addProperty("temperature", 0.1);
         requestBodyJson.addProperty("max_tokens", 8192);
-        requestBodyJson.addProperty("stream", false); // Não usaremos stream para obter a resposta completa de uma vez
+        requestBodyJson.addProperty("stream", false);
 
         String requestBody = gson.toJson(requestBodyJson);
-//        System.out.println("Request Body Gerado para Groq: " + requestBody);
 
         HttpResponse<String> response;
         try (HttpClient client = HttpClient.newHttpClient()) {
@@ -80,18 +78,17 @@ public class Parser {
 
         JsonObject respostaJson = JsonParser.parseString(response.body()).getAsJsonObject();
 
-//        System.out.println("Resposta JSON da API Groq: " + respostaJson);
-
         return respostaJson
-                .getAsJsonArray("choices") // 1. Pega o array "choices"
-                .get(0)                    // 2. Pega o primeiro item (índice 0)
-                .getAsJsonObject()         // 3. Garante que é um Objeto JSON
-                .get("message")            // 4. Pega o campo "message" (exemplo comum de IA)
+                .getAsJsonArray("choices")
+                .get(0)
                 .getAsJsonObject()
-                .get("content")            // 5. Pega o texto final
+                .get("message")
+                .getAsJsonObject()
+                .get("content")
                 .getAsString();
     }
 
+    // teste de classe unitaria
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String word;

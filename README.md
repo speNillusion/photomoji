@@ -94,7 +94,7 @@ Follow these instructions to set up and run the project locally.
 
     **Linux/macOS:**
     ```bash
-    ./mvnw spring-boot:run
+    bash spring-boot:run
     ```
 
     The backend server will start at `http://localhost:3000`.
